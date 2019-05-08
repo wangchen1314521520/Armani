@@ -187,3 +187,69 @@ img{
     font-size: 14px;
     line-height: 18px;
 }
+/*右侧导航栏部分*/
+.navRight{
+    width: 82px;
+    height: 300px;
+    position: fixed;
+    bottom: 50%;
+    margin-bottom: -60px;
+    right: 0;
+    background: #333;
+    z-index: 1000;
+    font-size: 14px;
+    color: #e5e5e5;
+    font-weight: 700;
+    display: none;
+    cursor: pointer;
+}
+.navRight>div{
+    border-bottom: solid 1px #e5e5e5;
+}
+.main .navRight>div:last-child{
+    border-bottom: none;
+}
+.onlineConsult>a{
+    color: #e5e5e5;
+    padding: 30px 27px 28px;
+    text-decoration: none;
+    display: block;
+}
+.telephone{
+    text-align: center;
+}
+.phoneSpan{
+    margin-top: 5px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url(../img/s.png);
+    background-position: 4px -387px;
+}
+.telephone p:last-child {
+    margin-top: 20px;
+    line-height: 30px;
+}
+.returnTop{
+    width: 60px;
+    height: 60px;
+    background: #333;
+    cursor: pointer;
+    position: fixed;
+    right: 0;
+    bottom: 30%;
+    z-index: 9999;
+    text-align: center;
+    color: #fff;
+    opacity: 0;
+}
+.topbig{
+    line-height: 36px;
+    display: inline-block;
+    font-size: 20px;
+}
+.returnTop>span:last-child{
+    display: block;
+    font-size: 14px;
+    line-height: 10px;
+}

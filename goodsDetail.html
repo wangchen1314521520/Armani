@@ -259,14 +259,14 @@
     <div class="mainContent">
         <div class="mainContentLeft">
             <ul class="mainContentLeft_title">
-                <li><a href="#"><img src="img/goodsDetail_g1.png"></a></li>
-                <li><a href="#"><img src="img/goodsDetail_g2.png"></a></li>
-                <li><a href="#"><img src="img/goodsDetail_g3.png"></a></li>
-                <li><a href="#"><img src="img/goodsDetail_g4.png"></a></li>
-                <li><a href="#"><img src="img/goodsDetail_g5.png"></a></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
             </ul>
             <div class="imgBox">
-                <img src="img/goodsDetail_g1.png" alt="">
+                <div class="imgs"></div>
                 <div class="love">
                     <span class="love_text">加入到我的心愿单</span>
                     <span class="iconfont icon-aixin mylove"></span>
@@ -276,14 +276,115 @@
         <div class="mainContentRight">
             <h3 class="product_subtitle">迷情挚爱女士香水</h3>
             <h5 class="product_title">SI PASSIONE EDP</h5>
+            <div class="starBox">
+                <div class="stars">
+                    <span class="iconfont icon-star_full"></span>
+                    <span class="iconfont icon-star_full"></span>
+                    <span class="iconfont icon-star_full"></span>
+                    <span class="iconfont icon-star_full"></span>
+                    <span class="iconfont icon-star_full"></span>
+                </div>
+                <div class="starLabel">
+                    <span class="label">共<span class="num">0</span>条评论</span>
+                </div>
+            </div>
+            <div class="product_descriptionBox">
+                <div class="productDetails">
+                    <span>Sì，意大利语的“是”；Passione，意大利语的“热情”选择全新阿玛尼迷情挚爱女士香水，选择...</span>
+                    <a href="#">查看更多></a>
+                </div>
+            </div>
+            <div class="selectHowbig">
+                <ul>
+                    <li>30ml</li>
+                    <li>50ml</li>
+                    <li>100ml</li>
+                </ul>
+            </div>
+            <div class="calculateBox">
+                <div class="acountBox">
+                    <div class="quantityBox">
+                        <span class="selectboxit-text">数量   1</span>
+                        <span class="iconfont icon-back-top bot"></span>
+                    </div>
+                    <ul class="quantityBox_hireBox">
+                        <li>数量   1</li>
+                        <li>数量   2</li>
+                        <li>数量   3</li>
+                        <li>数量   4</li>
+                        <li>数量   5</li>
+                    </ul>
+                </div>
+                <div class="price_box">
+                    <div class="product_price"><a href="#">￥660</a></div>
+                    <div class="addShoppingCar"><a href="#">加入购物袋</a></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<!--product_tabs_holder部分-->
+<div class="product_tabs_holder">
+    <div class="product_information_holder">
+        <div class="product_information_holderLeft">
+
+        </div>
+        <div class="product_information_holderRight">
+
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
+<script type="text/javascript" src="js/cssTools.js"></script>
 <script type="text/javascript">
     window.onload = function() {
         showBox($(".loginAndReg")[0], $(".loginReg")[0]);
+
+        // 点击左边的li使放大镜的背景图改变
+        let liImgDoms = $(".mainContentLeft_title")[0].children;
+        for(let i = 0; i < liImgDoms.length; i++){
+            liImgDoms[i].onclick = function(){
+                for(let j = 0;j < liImgDoms.length; j++){
+                    liImgDoms[j].style.border = "solid 1px #cccccc";
+                }
+
+                this.style.border = "solid 1px #000";
+                $(".imgs")[0].style.backgroundImage = getStyle(this,"backgroundImage");
+            }
+        }
+
+        //放大镜效果
+        $(".imgs")[0].onmouseover = function(){
+            this.style.border = "solid 1px #eee";
+            this.style.backgroundSize = "600px 600px";
+            document.body.onmousemove = (event)=>{
+                let evt = event || window.event;
+                let _x = evt.pageX - this.offsetLeft - this.offsetWidth/2;
+                let _y = evt.pageY - this.offsetTop - this.offsetHeight/2;
+                //边界处理
+                if(_x < 0){
+                    _x = 0;
+                }else if(_x > this.offsetWidth){
+                    _x = this.offsetWidth;
+                }
+
+                if(_y < 0){
+                    _y = 0;
+                }else if(_y > this.offsetHeight){
+                    _y = this.offsetHeight;
+                }
+
+                this.style.backgroundPosition = `${-2*_x}px ${-2*_y}px`;
+            }
+        }
+        $(".imgs")[0].onmouseleave = function(){
+            document.body.onmousemove = "";
+            this.style.border = "";
+            this.style.backgroundSize = "300px 300px";
+            this.style.backgroundPosition = "0px 0px";
+        }
 
         //划过帮助中心显示helpCenter,离开帮助中心时消失
         let box = $(".box")[0];

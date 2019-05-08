@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/iconfont.css">
+<meta charset="UTF-8">
+<title>Title</title>
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/iconfont.css">
 </head>
 <body>
 <!--头部-->
@@ -377,6 +377,25 @@
             </div>
         </div>
     </div>
+
+    <!--右侧导航栏部分-->
+    <div class="navRight">
+        <div class="onlineConsult">
+            <a href="#">在线咨询</a>
+        </div>
+        <div class="telephone">
+            <span class="phoneSpan"></span>
+            <p>400-820-4888</p>
+            <p>9点-21点</p>
+        </div>
+        <div class="onlineConsult">
+            <a href="#">关注我们</a>
+        </div>
+    </div>
+    <div class="returnTop">
+        <span class="iconfont icon-back-top white topbig"></span>
+        <span>TOP</span>
+    </div>
 </div>
 <!--videoContent部分-->
 <div class="videoContent">
@@ -628,6 +647,66 @@
 </html>
 <script type="text/javascript" src="js/mover.js"></script>
 <script type="text/javascript">
+    // 头部固定
+    let  _top =  $(".nav")[0].offsetTop;
+    window.onscroll = function(){
+        let _scroll = document.body.scrollTop || document.documentElement.scrollTop;
+        // document.title = _scroll;
+        if(_scroll >= _top){
+            $(".nav")[0].style.top = 0;
+            $(".nav")[0].style.position = "fixed";
+        }else{
+            $(".nav")[0].style.position = "absolute";
+            $(".nav")[0].style.top = "130px";
+        }
+
+        //导航条固定
+        if(_scroll>170){
+            $(".navRight")[0].style.display = "block";
+        }else{
+            $(".navRight")[0].style.display = "none";
+        }
+
+        //返回顶部固定
+        if(_scroll>210){
+            $(".returnTop")[0].style.opacity = 1;
+            $(".returnTop")[0].style.transition = "opacity 1s";
+
+            //回到顶部的效果
+            var timer=null;
+            var istop=true;
+            //屏幕可视化高度
+            var clientHeight=document.documentElement.clientHeight;
+            //设置向上滚动时候突然往下翻的事件,注意window.onscroll
+            if(!istop){
+                clearInterval(timer);
+            }
+            istop=false;
+            //这里需要再申明一遍high的值，否则获取不到下面已经申明的值，因为Js是从上向下执行代码
+            var high=document.documentElement.scrollTop||document.body.scrollTop;
+
+
+            $(".returnTop")[0].onclick=function(){
+                //设置定时器，在30ms之内完成回到顶部的平滑效果
+                timer=setInterval(function() {
+                    //解决各个浏览器的兼容性问题
+                    //获得的这个high必须写在点击事件里面，因为js是从上往下执行代码
+                    var high=document.documentElement.scrollTop||document.body.scrollTop;
+                    //设置向上的速度，由快到慢，并且取负数整，这样可以为0，让定时器关闭
+                    var speed=Math.floor(-high/6);
+                    document.documentElement.scrollTop=document.body.scrollTop=high+speed;
+                    //向上滚动突然停止的变量一开始设为true,并且放在点击事件里面
+                    istop=true;
+                    if(high==0){
+                        clearInterval(timer);
+                    }
+                },30);
+            };
+        }else{
+            $(".returnTop")[0].style.opacity = 0;
+        }
+    }
+
     window.onload = function(){
         // 显示或隐藏
         showBox($(".hp_slot_img")[0],$(".hp_slot_left_hire")[0]);
@@ -644,6 +723,7 @@
                 target.children[1].style.display= "block";
             }
         }
+
         let isHire = $(".isHire");
         for(let i = 0 ; i < isHire.length; i ++){
             isHire[i].onmouseleave = function(){
@@ -682,44 +762,45 @@
 
         //菜单栏效果
         let nav_centerDoms = $(".list_li");
-        let hireBoxDoms =  $(".hireBox");
+        let hireBoxDoms = $(".hireBox");
 
-        for(let i = 0; i < nav_centerDoms.length; i ++){
+        for (let i = 0; i < nav_centerDoms.length; i++) {
             nav_centerDoms[i].index = i;
-            nav_centerDoms[i].onmouseenter = function(){
+            nav_centerDoms[i].onmouseenter = function () {
                 $(".nav_needhire")[0].style.display = "block";
                 $(".nav_needhire")[0].style.cursor = "pointer";
                 nav_centerDoms[i].style.color = "#fff";
-                for(let j = 0; j < hireBoxDoms.length; j ++) {
+                for (let j = 0; j < hireBoxDoms.length; j++) {
                     hireBoxDoms[j].style.display = "block";
                     hireBoxDoms[j].style.zIndex = 5;
                 }
                 hireBoxDoms[this.index].style.zIndex = 10;
             }
 
-            nav_centerDoms[i].onmouseleave = function(){
+            nav_centerDoms[i].onmouseleave = function () {
                 nav_centerDoms[i].style.color = "#bbbbbb";
             }
 
-            $(".nav_needhire")[0].onmouseleave = function() {
+            $(".nav_needhire")[0].onmouseleave = function () {
                 this.style.display = "none";
             }
         }
 
         let hongguan = $(".hongguan")[0];
         let a = 1;
-        hongguan.onclick = function(){
-            for(let j = 0; j < hireBoxDoms.length; j ++) {
+        hongguan.onclick = function () {
+            for (let j = 0; j < hireBoxDoms.length; j++) {
                 hireBoxDoms[j].style.display = "none";
             }
-
             a++;
             //点击一下
-            if(a%2 == 0){
+            if (a % 2 == 0) {
                 $(".info")[0].style.height = "60px";
-            //点击两下
-            }else{
+                $(".info")[0].children[0].style.display = "block";
+                //点击两下
+            } else {
                 $(".info")[0].style.height = "0";
+                $(".info")[0].children[0].style.display = "none";
             }
         }
 
@@ -805,8 +886,6 @@
                 }
             }
         }
-
-
     }
     let index = 0;
     let imgs = $(".images");

@@ -1,7 +1,5 @@
 
-
 //运动封装:
-
 //参数：
 //dom对象
 //样式属性名
@@ -10,7 +8,6 @@
 //方向(1：表示正向，-1：表示反向)
 //时间间隔
 //步长
-
 function mover01(domObj,attr,startValue,endValue,direction,timeSpace,step,func) {
 	
 	let value = startValue;

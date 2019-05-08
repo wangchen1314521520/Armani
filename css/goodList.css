@@ -228,6 +228,9 @@ article>h3{
 .navRight>div{
     border-bottom: solid 1px #e5e5e5;
 }
+.main .navRight>div:last-child{
+    border-bottom: none;
+}
 .onlineConsult>a{
     color: #e5e5e5;
     padding: 30px 27px 28px;
